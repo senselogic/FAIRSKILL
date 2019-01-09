@@ -26,7 +26,7 @@ his skill increases/decreases toward that skill, proportionally to the normalize
 
 The player skill offset is then scaled proportionally to his play time during the last game.
 
-The maximum skill offset is reduced progressively over time.
+After the placement games, the maximum skill offset is progressively reduced over time.
 
 ## Compilation
 
