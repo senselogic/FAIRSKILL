@@ -26,6 +26,8 @@ his skill increases/decreases toward that skill, proportionally to the normalize
 
 The player skill offset is then scaled proportionally to his play time during the last game.
 
+The maximum skill offset is reduced progressively over time.
+
 ## Compilation
 
 To compile the reference implementation of the algorithm, first install the [DMD 2 compiler](https://dlang.org/download.html).
