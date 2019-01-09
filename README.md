@@ -4,7 +4,7 @@
 
 Skill-based ranking algorithm.
 
-## Goals
+## Description
 
 FairSkill sorts a list of players by increasing matchmaking skill, estimated from their performance during a series of games.
 
@@ -12,7 +12,7 @@ The player skill is adjusted only when he plays better/worse than his opponents 
 
 During hist first games of a season, the player skill can be adjusted much more quickly.
 
-## Basic algorithm
+## Algorithm
 
 When a player finishes a game, his skill is adjusted only if he has played for a minimum duration.
 
