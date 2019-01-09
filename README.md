@@ -14,7 +14,7 @@ The player skill is adjusted only when he plays better/worse than his opponents 
 
 When a player finishes a game, his skill is adjusted only if he has played for a minimum duration.
 
-The score of a player who has joined an ongoing game is first normalized by dividing it by his play time during the last game.
+The score of a player who has joined an ongoing game is first normalized proportionally to his play time ratio during the last game.
 
 The lost/won skill points of a player are proportional to the average normalized skill difference at the end of the game.
 
@@ -24,7 +24,7 @@ his skill increases/decreases by a fraction of a ranking division, proportionall
 If a player wins/looses with a higher/lower normalized score than a higher/lower skill player,
 his skill increases/decreases toward that skill, proportionally to the normalized score difference.
 
-The player skill offset is then scaled proportionally to his play time during the last game.
+The player skill offset is then scaled proportionally to his play time ratio during the last game.
 
 After the placement games, the maximum skill offset is progressively reduced over time.
 
