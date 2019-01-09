@@ -37,7 +37,8 @@ enum PlacementGameCount = 10;
 enum PlacementGameMaximumPositiveSkillOffset = TierSkillCount * 2;
 enum PlacementGameMaximumNegativeSkillOffset = PlacementGameMaximumPositiveSkillOffset / 2;
 enum DefaultSkill = 0;
-enum MinimumPlayTime = 60;
+enum MinimumPlayTime = 60.0;
+enum MaximumPlayDuration = 300.0;
 enum TeamPlayerCount = 6;
 enum GamePlayerCount = TeamPlayerCount * 2;
 enum PlayerCount = 100;
@@ -129,6 +130,7 @@ class PLAYER_SCORE
         TeamIndex;
     double
         PlayTime,
+        PlayDuration,
         PointCount,
         NormalizedPointCount,
         SkillOffset;
@@ -144,7 +146,8 @@ class PLAYER_SCORE
         )
     {
         TeamIndex = team_index;
-        PlayTime = 300.0;
+        PlayTime = MaximumPlayDuration;
+        PlayDuration = MaximumPlayDuration;
     }
 
     // -- INQUIRIES
@@ -161,6 +164,8 @@ class PLAYER_SCORE
             TeamIndex,
             " ",
             PlayTime,
+            " ",
+            PlayDuration,
             " ",
             NormalizedPointCount,
             " => ",
@@ -252,6 +257,8 @@ class PLAYER_SCORE
                     SkillOffset += skill_offset / TeamPlayerCount;
                 }
             }
+
+            SkillOffset *= PlayTime / PlayDuration;
         }
     }
 

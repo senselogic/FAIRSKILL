@@ -24,7 +24,7 @@ his skill increases/decreases by a fraction of a ranking division, proportionall
 If a player wins/looses with a higher/lower normalized score than a higher/lower skill player,
 his skill increases/decreases toward that skill, proportionally to the normalized score difference.
 
-Only players who have started a game can loose some skill.
+The player skill offset is then scaled proportionally to his play time during the last game.
 
 ## Compilation
 
