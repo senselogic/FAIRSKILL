@@ -21,7 +21,7 @@ The score of a player who has joined an ongoing game is first normalized by divi
 The lost/won skill points of a player are proportional to the average normalized skill difference at the end of the game.
 
 If a player wins/looses with a higher/lower normalized score than the average normalized score of his team,
-his skill increases/decreases of a fraction of a ranking division, proportionally to the normalized average score difference.
+his skill increases/decreases by a fraction of a ranking division, proportionally to the normalized average score difference.
 
 If a player wins/looses with a higher/lower normalized score than a higher/lower skill player,
 his skill increases/decreases toward that skill, proportionally to the normalized score difference.
