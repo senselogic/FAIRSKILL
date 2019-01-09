@@ -33,16 +33,17 @@ enum DivisionSkillCount = TierSkillCount / TierDivisionCount;
 enum DivisionMinimumGameCount = 2;
 enum GameMaximumPositiveSkillOffset = DivisionSkillCount / DivisionMinimumGameCount;
 enum GameMaximumNegativeSkillOffset = GameMaximumPositiveSkillOffset;
-enum PlacementGameCount = 10;
+enum PlacementGameCount = 25;
 enum PlacementGameMaximumPositiveSkillOffset = TierSkillCount * 2;
 enum PlacementGameMaximumNegativeSkillOffset = PlacementGameMaximumPositiveSkillOffset / 2;
+enum TransitionGameCount = 25;
 enum DefaultSkill = 0;
 enum MinimumPlayTime = 60.0;
 enum MaximumPlayDuration = 300.0;
 enum TeamPlayerCount = 6;
 enum GamePlayerCount = TeamPlayerCount * 2;
 enum PlayerCount = 100;
-enum GameCount = PlayerCount * 50;
+enum GameCount = PlayerCount * GamePlayerCount;
 enum PlayerTestCount = 5;
 
 // -- TYPES
@@ -58,8 +59,6 @@ class PLAYER
         TrueSkill;
     bool
         ItHasWon;
-    int
-        RemainingPlacementGameCount;
     long
         FinishedGameCount;
 
@@ -74,7 +73,6 @@ class PLAYER
         Skill = DefaultSkill;
         TrueSkill = true_skill;
         ItHasWon = false;
-        RemainingPlacementGameCount = PlacementGameCount;
         FinishedGameCount = 0;
     }
 
@@ -185,16 +183,27 @@ class PLAYER_SCORE
         double
             game_maximum_negative_skill_offset,
             game_maximum_positive_skill_offset,
-            skill_offset;
+            skill_offset,
+            transition_ratio;
         TEAM_SCORE
             other_team_score;
 
-        if ( Player.RemainingPlacementGameCount > 0 )
+        if ( Player.FinishedGameCount <= PlacementGameCount )
         {
-            --Player.RemainingPlacementGameCount;
-
             game_maximum_positive_skill_offset = PlacementGameMaximumPositiveSkillOffset;
             game_maximum_negative_skill_offset = PlacementGameMaximumNegativeSkillOffset;
+        }
+        else if ( Player.FinishedGameCount <= PlacementGameCount + TransitionGameCount )
+        {
+            transition_ratio = ( Player.FinishedGameCount - PlacementGameCount ).to!double() / TransitionGameCount;
+
+            game_maximum_positive_skill_offset
+                = PlacementGameMaximumPositiveSkillOffset * transition_ratio
+                  + GameMaximumPositiveSkillOffset * ( 1.0 - transition_ratio );
+
+            game_maximum_negative_skill_offset
+                = PlacementGameMaximumNegativeSkillOffset * transition_ratio
+                  + GameMaximumNegativeSkillOffset * ( 1.0 - transition_ratio );
         }
         else
         {
@@ -586,13 +595,12 @@ void main(
     {
         player_table.UpdateSkill();
 
-        if ( game_index == PlayerCount * PlacementGameCount / TeamPlayerCount
-             || game_index == 2 * PlayerCount * PlacementGameCount / TeamPlayerCount
+        if ( game_index == PlacementGameCount * 10
+             || game_index == ( PlacementGameCount + TransitionGameCount ) * 10
              || game_index == GameCount - 1 )
         {
-            writeln( "-- GAME ", game_index, " --" );
-
             player_table.Dump();
+            writeln( "---" );
         }
     }
 }
