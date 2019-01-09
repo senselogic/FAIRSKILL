@@ -10,7 +10,7 @@ FairSkill sorts a list of players by increasing matchmaking skill, estimated fro
 
 The player skill is adjusted only when he plays better/worse than his opponents and teammates with a higher/lower skill.
 
-During hist first games of a season, the player skill can be adjusted much more quickly.
+During the first games, the player skill is adjusted more quickly.
 
 ## Algorithm
 
